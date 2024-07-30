@@ -13,17 +13,17 @@ An interrupt-based smart data logging system for agricultural applications, util
 - **Wireless Communication:** Utilizes Bluetooth and Xbee modules for wireless communication.
 
 ## Files
-### `main_remote_sensor.c`
+### `CentralMCU.c`
 This file contains the main logic for the remote sensor system, including initialization of peripherals, USART communication, CRC error checking, memory management, and sensor data handling.
 
-### `main_sensor_unit.c`
+### `SensorMCU.c`
 This file includes the code for the sensor unit, which reads sensor values, controls the LCD display, and manages the water pump motor based on moisture levels.
 
-### `main_keypad.c`
+### `UserMCU.c`
 This file includes the configuration and handling of a keypad input, which can be used for user interactions and settings adjustments.
 
 ## Functions
-### Remote Sensor Functions (`main_remote_sensor.c`)
+### Remote Sensor Functions (`CentralMCU.c`)
 - **Sleep_and_Wait():** Puts the microcontroller into sleep mode to save power.
 - **UserBufferOut(unsigned char msg):** Sends a message to the user via USART0.
 - **MessageSensor(unsigned char msg):** Sends a message to the sensor via USART1.
@@ -40,7 +40,7 @@ This file includes the configuration and handling of a keypad input, which can b
 - **SensorTrBufferInit():** Initializes the sensor transmit buffer.
 - **Init_RemoteSensor():** Initializes the remote sensor.
 
-### Sensor Unit Functions (`main_sensor_unit.c`)
+### Sensor Unit Functions (`SensorMCU.c`)
 - **Sleep_and_Wait():** Puts the microcontroller into sleep mode to save power.
 - **UserBufferOut(unsigned char msg):** Sends a message to the user via USART0.
 - **Configuration():** Configures the LCD display, ADC, USART, and timer.
@@ -49,7 +49,7 @@ This file includes the configuration and handling of a keypad input, which can b
 - **display():** Displays sensor readings and alerts on the LCD screen.
 - **TIMER1_COMPA_vect():** Timer interrupt service routine for periodic tasks.
 
-### Keypad Functions (`main_keypad.c`)
+### Keypad Functions (`UserMCU.c`)
 - **Sleep_and_Wait():** Puts the microcontroller into sleep mode to save power.
 - **Configuration():** Configures the LCD display and keypad.
 
@@ -77,3 +77,18 @@ This file includes the configuration and handling of a keypad input, which can b
 - Ensure the microcontroller is properly configured for external memory if required.
 - The watchdog timer is disabled in the provided code but can be enabled if needed.
 - Modify the pin configurations as per your hardware setup.
+
+## Virtual Serial Port Emulator (VSPE) Setup
+To facilitate communication between the Xbee and Bluetooth modules when using proteus, a virtual serial port emulator (VSPE) is required. Follow these steps to set it up:
+
+1. **Download VSPE:** Install the Virtual Serial Port Emulator from the official website.
+2. **Open VSPE:** Launch the VSPE application.
+3. **Create New Device:**
+   - Click the "Create new device" button.
+   - Select "Pair" under the device type.
+   - Choose COM1 and COM2 as virtual ports 1 and 2, then click "Finish."
+4. **Create Another Pair:**
+   - Repeat the same process to create another pair.
+   - This time, pair COM3 and COM4 together.
+
+This setup will allow you to emulate the serial port communication required for the Xbee and Bluetooth modules.
